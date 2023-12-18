@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
+const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -7,7 +9,11 @@ app.use(express.json());
 
 
 const userRoutes = require("./routes/userRoutes");
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(cors());
 
+// console.log("Database url", process.env.DATABASE_URL);
 mongoose
   .connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 
